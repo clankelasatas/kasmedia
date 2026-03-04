@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — KASMEDIA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { primary: '#3B82F6', dark: '#1a1a1a', darker: '#111111', light: '#f5f5f5' }, fontFamily: { heading: ['Poppins','sans-serif'], body: ['Inter','sans-serif'] } } }
+        }
+    </script>
+</head>
+<body class="font-body bg-light dark:bg-darker text-dark dark:text-gray-200 transition-colors duration-300">
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center">
+        <div class="bg-white dark:bg-dark rounded-2xl shadow-xl p-8 w-full max-w-md fade-in">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <img src="assets/images/logo.png" alt="KASMEDIA Logo" class="w-12 h-12 rounded-xl object-contain">
+                </div>
+                <h1 class="font-heading text-2xl font-bold">Admin Panel</h1>
+                <p class="text-gray-500 text-sm mt-1">KASMEDIA — Universitas Pandanaran</p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Username</label>
+                    <input type="text" id="loginUser" placeholder="Username" class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" id="loginPass" placeholder="Password" class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <p id="loginError" class="text-red-500 text-sm hidden">Username atau password salah!</p>
+                <button onclick="handleLogin()" class="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-hover transition">Masuk</button>
+                <p class="text-xs text-gray-400 text-center">Demo: admin / admin</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="hidden">
+        <div class="bg-white dark:bg-dark border-b border-gray-200 dark:border-gray-800 px-6 py-4 flex items-center justify-between sticky top-0 z-40">
+            <div class="flex items-center gap-3">
+                <img src="assets/images/logo.png" alt="KASMEDIA Logo" class="w-8 h-8 rounded-lg object-contain">
+                <span class="font-heading font-bold">KASMEDIA <span class="text-primary">Admin</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="darkToggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    <svg id="sunIcon" class="w-5 h-5 hidden dark:block text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+                    <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+                </button>
+                <a href="index.html" class="text-sm text-primary hover:underline">Lihat Situs →</a>
+                <button onclick="handleLogout()" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600 transition">Keluar</button>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white dark:bg-dark rounded-xl p-6 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-2xl">📰</div>
+                        <div><p class="text-sm text-gray-500">Total Artikel</p><p class="text-3xl font-heading font-bold" id="statArticles">0</p></div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-dark rounded-xl p-6 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-primary-bg dark:bg-primary/20 rounded-xl flex items-center justify-center text-2xl">📅</div>
+                        <div><p class="text-sm text-gray-500">Total Acara</p><p class="text-3xl font-heading font-bold" id="statEvents">0</p></div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-dark rounded-xl p-6 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-green-50 dark:bg-green-900/20 rounded-xl flex items-center justify-center text-2xl">👥</div>
+                        <div><p class="text-sm text-gray-500">Total Anggota</p><p class="text-3xl font-heading font-bold" id="statMembers">0</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-2 mb-6 border-b border-gray-200 dark:border-gray-800">
+                <button class="admin-tab active" data-tab="articles" onclick="switchTab('articles')">📰 Artikel</button>
+                <button class="admin-tab" data-tab="events" onclick="switchTab('events')">📅 Acara</button>
+                <button class="admin-tab" data-tab="members" onclick="switchTab('members')">👥 Anggota</button>
+            </div>
+
+            <!-- Articles Tab -->
+            <div id="tab-articles" class="admin-tab-content">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-heading text-xl font-bold">Kelola Artikel</h2>
+                    <button onclick="showArticleForm()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition text-sm font-medium">+ Tambah Artikel</button>
+                </div>
+                <div id="articleForm" class="hidden bg-white dark:bg-dark rounded-xl p-6 mb-6 shadow-sm">
+                    <h3 class="font-heading font-semibold mb-4" id="articleFormTitle">Tambah Artikel Baru</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label class="block text-sm font-medium mb-1">Judul</label><input type="text" id="artTitle" class="admin-input" placeholder="Judul artikel"></div>
+                        <div><label class="block text-sm font-medium mb-1">Kategori</label><select id="artCategory" class="admin-input"><option value="Kegiatan">Kegiatan</option><option value="Cerita">Cerita</option><option value="Pengumuman">Pengumuman</option><option value="Acara">Acara</option><option value="Galeri">Galeri</option><option value="Opini">Opini</option></select></div>
+                        <div><label class="block text-sm font-medium mb-1">Penulis</label><input type="text" id="artAuthor" class="admin-input" placeholder="Nama penulis"></div>
+                        <div><label class="block text-sm font-medium mb-1">URL Gambar</label><input type="text" id="artImage" class="admin-input" placeholder="https://picsum.photos/seed/artikel/800/400"></div>
+                        <div class="md:col-span-2"><label class="block text-sm font-medium mb-1">Ringkasan</label><input type="text" id="artExcerpt" class="admin-input" placeholder="Ringkasan singkat artikel"></div>
+                        <div class="md:col-span-2"><label class="block text-sm font-medium mb-1">Isi Artikel (HTML)</label><textarea id="artBody" rows="6" class="admin-input" placeholder="<p>Isi artikel...</p>"></textarea></div>
+                    </div>
+                    <div class="flex gap-3 mt-4">
+                        <button onclick="saveArticle()" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition text-sm font-medium">Simpan</button>
+                        <button onclick="hideArticleForm()" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition text-sm">Batal</button>
+                    </div>
+                    <input type="hidden" id="artEditId" value="">
+                </div>
+                <div class="bg-white dark:bg-dark rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50 dark:bg-gray-800"><tr><th class="px-4 py-3 text-left font-medium">Judul</th><th class="px-4 py-3 text-left font-medium">Kategori</th><th class="px-4 py-3 text-left font-medium">Penulis</th><th class="px-4 py-3 text-left font-medium">Tanggal</th><th class="px-4 py-3 text-left font-medium">Aksi</th></tr></thead>
+                            <tbody id="articlesTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Tab -->
+            <div id="tab-events" class="admin-tab-content hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-heading text-xl font-bold">Kelola Acara</h2>
+                    <button onclick="showEventForm()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition text-sm font-medium">+ Tambah Acara</button>
+                </div>
+                <div id="eventForm" class="hidden bg-white dark:bg-dark rounded-xl p-6 mb-6 shadow-sm">
+                    <h3 class="font-heading font-semibold mb-4">Tambah Acara Baru</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label class="block text-sm font-medium mb-1">Judul Acara</label><input type="text" id="evtTitle" class="admin-input" placeholder="Judul acara"></div>
+                        <div><label class="block text-sm font-medium mb-1">Lokasi</label><input type="text" id="evtLocation" class="admin-input" placeholder="Lokasi acara"></div>
+                        <div><label class="block text-sm font-medium mb-1">Tanggal</label><input type="date" id="evtDate" class="admin-input"></div>
+                        <div><label class="block text-sm font-medium mb-1">Status</label><select id="evtStatus" class="admin-input"><option value="true">Mendatang</option><option value="false">Selesai</option></select></div>
+                        <div class="md:col-span-2"><label class="block text-sm font-medium mb-1">Deskripsi</label><textarea id="evtDesc" rows="3" class="admin-input" placeholder="Deskripsi acara"></textarea></div>
+                    </div>
+                    <div class="flex gap-3 mt-4">
+                        <button onclick="saveEvent()" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition text-sm font-medium">Simpan</button>
+                        <button onclick="document.getElementById('eventForm').classList.add('hidden')" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-sm">Batal</button>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-dark rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50 dark:bg-gray-800"><tr><th class="px-4 py-3 text-left font-medium">Acara</th><th class="px-4 py-3 text-left font-medium">Lokasi</th><th class="px-4 py-3 text-left font-medium">Status</th><th class="px-4 py-3 text-left font-medium">Aksi</th></tr></thead>
+                            <tbody id="eventsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Members Tab -->
+            <div id="tab-members" class="admin-tab-content hidden">
+                <h2 class="font-heading text-xl font-bold mb-4">Kelola Anggota</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="membersGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

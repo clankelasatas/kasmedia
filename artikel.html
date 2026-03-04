@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel — KASMEDIA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{DEFAULT:'rgb(var(--c-primary) / <alpha-value>)',hover:'rgb(var(--c-primary-hover) / <alpha-value>)',light:'rgb(var(--c-primary-light) / <alpha-value>)',soft:'rgb(var(--c-primary-soft) / <alpha-value>)',bg:'rgb(var(--c-primary-bg) / <alpha-value>)'},dark:'#1a1a1a',darker:'#111111',light:'#f5f5f5'},fontFamily:{heading:['Poppins','sans-serif'],body:['Inter','sans-serif']}}}}</script>
+</head>
+<body class="font-body bg-white text-dark dark:bg-darker dark:text-gray-200 transition-colors duration-300">
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/80 dark:bg-darker/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center flex-shrink-0">
+                    <img src="assets/images/logo-light.png" alt="KASMEDIA" class="h-9 w-auto object-contain block dark:hidden">
+                    <img src="assets/images/logo-dark.png" alt="KASMEDIA" class="h-9 w-auto object-contain hidden dark:block">
+                </a>
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="index.html" class="nav-link">Beranda</a>
+                    <a href="tentang.html" class="nav-link">Tentang Kami</a>
+                    <a href="acara.html" class="nav-link">Acara</a>
+                    <a href="kontak.html" class="nav-link">Kontak</a>
+                    <div class="relative flex items-center" id="searchContainer">
+                        <button id="searchToggle" class="p-2.5 rounded-full hover:bg-primary-bg dark:hover:bg-gray-800 transition-all duration-200" aria-label="Cari"><svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+                        <div id="searchWrapper" class="absolute right-0 top-1/2 -translate-y-1/2 overflow-hidden transition-all duration-300 ease-out" style="width:0;opacity:0;"><div class="flex items-center bg-light dark:bg-dark rounded-full pl-4 pr-2 py-2 border border-gray-200 dark:border-gray-700 focus-within:border-primary min-w-[280px] transition-colors"><svg class="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><input type="text" id="searchInput" placeholder="Cari artikel..." class="bg-transparent text-sm outline-none flex-1 placeholder-gray-400 min-w-0"><button id="searchClose" class="p-1.5 ml-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"><svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button></div></div>
+                        <div id="searchResults" class="absolute top-full right-0 w-80 bg-white dark:bg-dark border border-gray-200 dark:border-gray-700 rounded-xl mt-2 hidden max-h-72 overflow-y-auto shadow-xl z-10"></div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="darkToggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition" aria-label="Toggle dark mode"><svg id="sunIcon" class="w-5 h-5 hidden dark:block text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg><svg id="moonIcon" class="w-5 h-5 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg></button>
+                    <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition" aria-label="Menu"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobileSidebar" class="fixed inset-0 z-[60] hidden"><div id="mobileOverlay" class="absolute inset-0 bg-black/50" onclick="closeMobileMenu()"></div><div id="mobilePanel" class="absolute right-0 top-0 h-full w-80 bg-white dark:bg-dark transform translate-x-full transition-transform duration-300 overflow-y-auto"><div class="p-6"><div class="flex justify-between items-center mb-8"><img src="assets/images/logo-light.png" alt="KASMEDIA" class="h-7 w-auto object-contain block dark:hidden"><img src="assets/images/logo-dark.png" alt="KASMEDIA" class="h-7 w-auto object-contain hidden dark:block"><button onclick="closeMobileMenu()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button></div><div class="mb-6"><div class="flex items-center bg-light dark:bg-gray-800 rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700"><svg class="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><input type="text" id="mobileSearchInput" placeholder="Cari artikel..." class="bg-transparent text-sm outline-none w-full placeholder-gray-400"></div></div><div class="flex flex-col gap-4"><a href="index.html" class="text-lg font-medium hover:text-primary transition">Beranda</a><a href="tentang.html" class="text-lg font-medium hover:text-primary transition">Tentang Kami</a><a href="acara.html" class="text-lg font-medium hover:text-primary transition">Acara</a><a href="kontak.html" class="text-lg font-medium hover:text-primary transition">Kontak</a></div></div></div></div>
+
+    <main class="pt-24 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <article>
+            <div id="articleContent" class="fade-in"></div>
+            <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
+                <h4 class="font-heading font-semibold mb-3">Bagikan Artikel:</h4>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="shareWhatsApp()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition text-sm">WhatsApp</button>
+                    <button onclick="shareTwitter()" class="px-4 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition text-sm">Twitter</button>
+                    <button onclick="shareFacebook()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm">Facebook</button>
+                    <button onclick="copyLink()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition text-sm" id="copyLinkBtn">📋 Salin Link</button>
+                </div>
+            </div>
+            <div id="authorCard" class="mt-8 bg-light dark:bg-dark rounded-xl p-6 fade-in"></div>
+            <div class="mt-12">
+                <h3 class="font-heading text-2xl font-bold mb-6">Artikel Terkait</h3>
+                <div id="relatedArticles" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="mt-20 border-t border-gray-200 dark:border-gray-800 bg-light dark:bg-dark"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-sm text-gray-500"><p>&copy; 2024 KASMEDIA — Universitas Pandanaran. Dibuat dengan ❤️</p></div></footer>
+    <button id="backToTop" class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:bg-primary-hover z-50" aria-label="Kembali ke atas"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg></button>
+
+    <script src="js/data.js"></script><script src="js/darkmode.js"></script><script src="js/main.js"></script><script src="js/search.js"></script>
+    <script>
+        const urlParams=new URLSearchParams(window.location.search);const articleId=parseInt(urlParams.get('id'))||1;const article=articlesData.find(a=>a.id===articleId);
+        if(article){document.title=`${article.title} — KASMEDIA`;const author=membersData.find(m=>m.name===article.author)||membersData[0];
+        document.getElementById('articleContent').innerHTML=`<a href="index.html" class="inline-flex items-center gap-1 text-primary hover:text-primary-light mb-4 text-sm transition-colors duration-300">← Kembali ke Beranda</a><span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium mb-4 ml-2">${article.category}</span><h1 class="font-heading text-3xl md:text-4xl font-bold mb-4 leading-tight">${article.title}</h1><div class="flex flex-wrap items-center gap-3 mb-6 text-sm text-gray-500"><div class="flex items-center gap-2"><img src="${author.avatar}" alt="${article.author}" class="w-6 h-6 rounded-full object-cover flex-shrink-0 aspect-square"><span class="text-xs font-medium text-gray-600 dark:text-gray-300">${article.author}</span></div><span class="text-xs">•</span><span class="text-[11px] text-gray-400">📅 ${article.date}</span></div><img src="${article.image}" alt="${article.title}" class="w-full rounded-xl mb-8 object-cover max-h-[450px]"><div class="article-body">${article.body}</div>`;
+        document.getElementById('authorCard').innerHTML=`<div class="flex items-center gap-4"><img src="${author.avatar}" alt="${author.name}" class="w-14 h-14 rounded-full object-cover flex-shrink-0 aspect-square"><div><h4 class="font-heading font-semibold text-sm">${author.name}</h4><p class="text-xs text-primary">${author.role}</p><p class="text-xs text-gray-500 dark:text-gray-400 mt-1">${author.bio}</p></div></div>`;
+        const related=articlesData.filter(a=>a.category===article.category&&a.id!==article.id).slice(0,3);const fallback=related.length>0?related:articlesData.filter(a=>a.id!==article.id).slice(0,3);const rc=document.getElementById('relatedArticles');
+        fallback.forEach(r=>{rc.innerHTML+=`<a href="artikel.html?id=${r.id}" class="group bg-light dark:bg-dark rounded-xl overflow-hidden hover:shadow-lg transition"><img src="${r.image}" alt="${r.title}" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300"><div class="p-4"><span class="text-xs text-primary font-medium">${r.category}</span><h4 class="font-heading font-semibold text-sm mt-1 group-hover:text-primary-light transition-colors duration-300">${r.title}</h4></div></a>`;});}
+        function shareWhatsApp(){window.open(`https://wa.me/?text=${encodeURIComponent(document.title+' '+window.location.href)}`);}
+        function shareTwitter(){window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(document.title)}&url=${encodeURIComponent(window.location.href)}`);}
+        function shareFacebook(){window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`);}
+        function copyLink(){navigator.clipboard.writeText(window.location.href);document.getElementById('copyLinkBtn').innerHTML='✅ Tersalin!';setTimeout(()=>{document.getElementById('copyLinkBtn').innerHTML='📋 Salin Link';},2000);}
+    </script>
+</body>
+</html>
